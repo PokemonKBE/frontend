@@ -10,13 +10,18 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/buy-set',
-      name: 'buy-set',
+      path: '/buy-sets',
+      name: 'buy-sets',
       component: () => import('../views/BuySetView.vue')
     },
     {
       path: '/buy-cards',
       name: 'buy-cards',
+      component: () => import('../views/BuyCardView.vue')
+    },
+    {
+      path: '/build-sets',
+      name: 'build-sets',
       component: () => import('../views/BuyCardView.vue')
     },
     {

@@ -10,48 +10,59 @@
       </v-app-bar>
     </v-card>
 
-    <v-navigation-drawer
-        v-model="drawer"
-        color="#f6efe8">
-      <v-list
-          nav
-          :items="items"
-          class="nav-menu "
-          @click="drawer = !drawer"
-      >
-      </v-list>
+      <v-navigation-drawer
+          v-model="drawer"
+          color="#f6efe8">
 
-      <div class="pa-2">
-        <v-btn block color="#AED581">
-          Login
-        </v-btn>
-      </div>
+        <v-list
+            nav
+            class="nav-menu "
+            @click="drawer = !drawer"
+        >
+          <v-list-item
+              v-for="(item, index) in items"
+              :key="index"
+              :value="item"
+              :to="item.path"
+          >
+            <v-list-item-title
+            v-text="item.title"
+            ></v-list-item-title>
+          </v-list-item>
+        </v-list>
 
-      <template v-slot:append>
-          <div class="pa-2 align-content-center">
+        <div class="pa-2">
+          <v-btn block color="#AED581">
+            Login
+          </v-btn>
+        </div>
 
-            <v-select
-                label="Currency"
-                :items="currencies"
-                v-model="selected"
+    <template v-slot:append>
+      <div class="pa-2 align-content-center">
 
+        <v-select
+            label="Currency"
+            :items="currencies"
+            v-model="selected"
+
+        >
+          <template v-slot:item="{ item }">
+            <v-list-item
+                @click="clicked(item)"
             >
-              <template v-slot:item="{ item }">
-                <v-list-item
-                    @click="clicked(item)"
-                >
-                  <template v-slot:prepend>
-                    <v-icon :icon="item.raw.icon"></v-icon>
-                  </template>
-
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
+              <template v-slot:prepend>
+                <v-icon :icon="item.raw.icon"></v-icon>
               </template>
-            </v-select>
-          </div>
-      </template>
+
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-select>
+      </div>
+    </template>
 
     </v-navigation-drawer>
+
   </v-sheet>
 
 </template>
@@ -71,14 +82,18 @@ export default defineComponent({
       {
         title: 'Buy Cards',
         value: 'buy-card',
+        path: '/buy-cards'
       },
       {
         title: 'Buy Sets',
         value: 'buy-set',
+        path: '/buy-sets'
+
       },
       {
         title: 'Build a Set',
         value: 'build-set',
+        path: '/build-sets'
       },
     ],
     currencies: [
