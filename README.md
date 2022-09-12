@@ -11,7 +11,7 @@ docker build -t image-name .
 
 Run Container
 ```shell
-docker run -it -p 8080:8080 --rm --name image-name container-name
+docker run -it -p 8080:80 image-name
 ```
 
 ## Type Support for `.vue` Imports in TS
