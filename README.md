@@ -2,9 +2,17 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+## Run Docker Container
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Create image
+```shell
+docker build -t image-name .
+```
+
+Run Container
+```shell
+docker run -it -p 8080:8080 --rm --name image-name container-name
+```
 
 ## Type Support for `.vue` Imports in TS
 
