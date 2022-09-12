@@ -81,18 +81,18 @@ export default defineComponent({
     items: [
       {
         title: 'Buy Cards',
-        value: 'buy-card',
+        value: 'buy-cards',
         path: '/buy-cards'
       },
       {
         title: 'Buy Sets',
-        value: 'buy-set',
+        value: 'buy-sets',
         path: '/buy-sets'
 
       },
       {
         title: 'Build a Set',
-        value: 'build-set',
+        value: 'build-sets',
         path: '/build-sets'
       },
     ],
