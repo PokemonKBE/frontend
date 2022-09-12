@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: "BuySetView"
+  name: "BuySetView",
+  components: {}
 }
 </script>
 

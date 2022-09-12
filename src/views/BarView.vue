@@ -10,56 +10,56 @@
       </v-app-bar>
     </v-card>
 
-      <v-navigation-drawer
-          v-model="drawer"
-          color="#f6efe8">
+    <v-navigation-drawer
+        v-model="drawer"
+        color="#f6efe8">
 
-        <v-list
-            nav
-            class="nav-menu "
-            @click="drawer = !drawer"
+      <v-list
+          nav
+          class="nav-menu "
+          @click="drawer = !drawer"
+      >
+        <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+            :value="item"
+            :to="item.path"
         >
-          <v-list-item
-              v-for="(item, index) in items"
-              :key="index"
-              :value="item"
-              :to="item.path"
-          >
-            <v-list-item-title
-            v-text="item.title"
-            ></v-list-item-title>
-          </v-list-item>
-        </v-list>
+          <v-list-item-title
+              v-text="item.title"
+          ></v-list-item-title>
+        </v-list-item>
+      </v-list>
 
-        <div class="pa-2">
-          <v-btn block color="#AED581">
-            Login
-          </v-btn>
-        </div>
-
-    <template v-slot:append>
-      <div class="pa-2 align-content-center">
-
-        <v-select
-            label="Currency"
-            :items="currencies"
-            v-model="selected"
-
-        >
-          <template v-slot:item="{ item }">
-            <v-list-item
-                @click="clicked(item)"
-            >
-              <template v-slot:prepend>
-                <v-icon :icon="item.raw.icon"></v-icon>
-              </template>
-
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
-          </template>
-        </v-select>
+      <div class="pa-2">
+        <v-btn block color="#AED581">
+          Login
+        </v-btn>
       </div>
-    </template>
+
+      <template v-slot:append>
+        <div class="pa-2 align-content-center">
+
+          <v-select
+              label="Currency"
+              :items="currencies"
+              v-model="selected"
+
+          >
+            <template v-slot:item="{ item }">
+              <v-list-item
+                  @click="clicked(item)"
+              >
+                <template v-slot:prepend>
+                  <v-icon :icon="item.raw.icon"></v-icon>
+                </template>
+
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </template>
+          </v-select>
+        </div>
+      </template>
 
     </v-navigation-drawer>
 
