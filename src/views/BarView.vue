@@ -32,7 +32,7 @@
       </v-list>
 
       <div class="pa-2">
-        <v-btn block color="#AED581">
+        <v-btn @click="test()" block color="#AED581">
           Login
         </v-btn>
       </div>
@@ -69,6 +69,7 @@
 
 <script lang='ts'>
 import {defineComponent, ref} from 'vue'
+import DataService from '../service/DataService'
 
 export default defineComponent({
   name: 'BarView',
@@ -77,6 +78,7 @@ export default defineComponent({
     drawer: false,
     group: null,
     selected: 'euro',
+    thing: null,
 
     items: [
       {
@@ -131,6 +133,13 @@ export default defineComponent({
       if (!item) return
       this.selected = item.value
     },
+
+    test() {
+      DataService.getCards().then((response) => {
+        this.thing = response.data
+      })
+      console.log(this.thing)
+    }
   },
   watch: {
     group() {
