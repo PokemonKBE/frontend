@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "keycloak-js": "^19.0.2",
     "roboto-fontface": "*",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5",
+    "vuejs-logger": "^1.5.5",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },
