@@ -12,8 +12,7 @@ loadFonts()
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',
-    url: 'https://127.0.0.1:8080/',
-    // checkLoginIframe: false
+    url: 'http://127.0.0.1:8080/',
 }
 
 export async function authenticateAgainstKeycloak(): Promise<void> {
@@ -35,7 +34,7 @@ export async function authenticateAgainstKeycloak(): Promise<void> {
         })
         await router.push('/')
     } catch (e) {
-        console.log("joa blöd halt ne", e)
+        console.log("Failed To get Token From Keycloak", e)
     }
 
 }
