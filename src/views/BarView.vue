@@ -37,6 +37,18 @@
         </v-btn>
       </div>
 
+      <div class="pa-2">
+        <v-btn @click="test2()" block color="#AED581">
+          Currency
+        </v-btn>
+      </div>
+
+      <div class="pa-2">
+        <v-btn @click="test3()" block color="#AED581">
+          Decks
+        </v-btn>
+      </div>
+
       <template v-slot:append>
         <div class="pa-2 align-content-center">
 
@@ -68,8 +80,11 @@
 </template>
 
 <script lang='ts'>
+import {CurrencyRequest} from '@/dto/CurrencyRequest'
 import {defineComponent, ref} from 'vue'
 import DataService from '../service/DataService'
+import {PokemonCardRequest} from "@/dto/PokemonCardRequest";
+import {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
 
 export default defineComponent({
   name: 'BarView',
@@ -135,7 +150,31 @@ export default defineComponent({
     },
 
     test() {
-      DataService.getCards().then((response) => {
+      DataService.getCards().then((response: any) => {
+        this.thing = response.data
+      })
+      console.log(this.thing)
+    },
+
+    test2() {
+      let currencyRequest = new CurrencyRequest("EUR", 1.5)
+
+      DataService.getCurrency(currencyRequest).then((response: any) => {
+        this.thing = response.data
+      })
+      console.log("here" + this.thing)
+    },
+
+    test3() {
+
+      let card = new PokemonCardRequest(0)
+      let array: PokemonCardRequest[] = []
+
+      array.push(card)
+
+      let deck = new PokemonDeckRequest("Kaka Deck", array)
+
+      DataService.postDeck(deck).then((response: any) => {
         this.thing = response.data
       })
       console.log(this.thing)

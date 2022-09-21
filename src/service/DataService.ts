@@ -1,5 +1,6 @@
 import axios from "axios"
-import type {CurrencyRequest} from "@/requests/CurrencyRequest";
+import type {CurrencyRequest} from "@/dto/CurrencyRequest";
+import type {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
 
 const api_base_url = "http://localhost:8082/api"
 
@@ -24,9 +25,13 @@ class DataService {
                 ...currencyRequest
             }
         })
-        console.log("uuumm:" + value)
+        console.log(value)
 
         return value
+    }
+
+    async postDeck(deck: PokemonDeckRequest) {
+        return await axios.post(api_base_url + "/create-deck", deck);
     }
 }
 
