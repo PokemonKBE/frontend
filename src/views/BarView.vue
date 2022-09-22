@@ -69,6 +69,9 @@
 
 <script lang='ts'>
 import {defineComponent, getCurrentInstance} from 'vue'
+
+import App from "@/App.vue";
+import {th} from "vuetify/lib/locale";
 export default defineComponent({
   name: 'BarView',
 
@@ -132,21 +135,28 @@ export default defineComponent({
       this.selected = item.value
     },
     login(){
-      this.cloak.logout("redirectUri:http:localhost:8080")
-    }
-      /*
+      const cre = {redirectUri : "http://127.0.0.1:5173/"}
+    this.$store.state.cloak.logout(cre)
+      window.localStorage.removeItem("keycloakToken")
+
+
+
+/*
       fetch("http://www.localhost:8080/realms/pokemon/protocol/openid-connect/logout?id_token_hint="+
           window.localStorage.getItem("keycloakToken")
-          + "&post_logout_redirect_uri=http://localhost:5173",{
+          + "&post_logout_redirect_uri=http://localhost:5173/",{
         method:"POST",
         mode:"no-cors",
         headers: {
           'Content-Type': 'pplication/x-www-form-urlencoded',
         }
       })
+*/
+
     }
 
-       */
+
+
   },
   watch: {
     group() {

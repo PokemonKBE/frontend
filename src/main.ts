@@ -1,12 +1,11 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
+import {loadFonts} from './plugins/webfontloader'
 import 'vuetify/styles'
 import Keycloak from "keycloak-js";
-import app from "@/App.vue";
-
+import { createStore } from 'vuex'
 
 
 loadFonts()
@@ -14,48 +13,65 @@ loadFonts()
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',
-    url: 'http://127.0.0.1:8080',
+    url: 'http://127.0.0.1:8080/',
 }
+
+const store = createStore({
+    state () {
+        return {
+            cloak: new Keycloak(initOptions)
+        }
+
+    },
+    mutations: {
+
+    },
+    getters:{
+        cloakState (state,getters){
+            return getters.state.cloak
+        }
+    }
+
+})
+
+
 
 
 
 export async function authenticateAgainstKeycloak(): Promise<void> {
 
+    const keycloak = store.state.cloak
+    try {
+        await keycloak.init({
+            onLoad: 'login-required',
+        }).then((auth) => {
 
+            if (!auth) {
+                window.location.reload()
+            } else {
+                console.log('Authenticated')
+            }
 
+            if (keycloak.token) {
+                window.localStorage.setItem('keycloakToken', keycloak.token)
 
+            }
+        })
+        await router.push('/')
+    } catch (e) {
+        console.log("Failed To get Token From Keycloak", e)
+    }
 }
 
 
 
+
 function instantiateVueApp() {
- const app = createApp(App)
-    app.config.globalProperties.keycloak = new Keycloak(initOptions)
-
-    app.component("child-component",{
-        async mounted() {
-            await this.keycloak.init({
-                adapter: 'default',
-                onLoad: 'login-required',
-            }).then((auth) => {
-
-                if (!auth) {
-                    console.log("reload")
-                    window.location.reload()
-                } else {
-
-                    console.log('Authenticated')
-                }
-
-                if (this.keycloak.token) {
-                    console.log("token")
-                    window.localStorage.setItem('keycloakToken', this.keycloak.token)
-                }
-            })
-            await router.push('/')
-        }
-    })
-    app.use(router).use(vuetify).mount('#app')
+    createApp(App)
+        .use(router)
+        .use(vuetify)
+        .use(store)
+        .mount('#app')
 }
 
 if (!window.localStorage.getItem('keycloakToken')) {

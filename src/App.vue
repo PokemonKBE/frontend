@@ -11,6 +11,7 @@
 import {defineComponent} from 'vue'
 import BarView from "@/views/BarView.vue";
 import router from "@/router";
+import {authenticateAgainstKeycloak} from "@/main";
 
 export default defineComponent({
   name: 'App',
@@ -22,6 +23,9 @@ export default defineComponent({
       //
     }
   },
+  beforeCreate() {
+    authenticateAgainstKeycloak()
+  }
 
 })
 </script>
