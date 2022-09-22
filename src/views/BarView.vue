@@ -32,7 +32,7 @@
       </v-list>
 
       <div class="pa-2">
-        <v-btn block color="#AED581">
+        <v-btn @click="login" block color="#AED581">
           Login
         </v-btn>
       </div>
@@ -68,12 +68,12 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref} from 'vue'
-
+import {defineComponent, getCurrentInstance} from 'vue'
 export default defineComponent({
   name: 'BarView',
 
   data: () => ({
+   cloak: getCurrentInstance()?.appContext.config.globalProperties.keycloak,
     drawer: false,
     group: null,
     selected: 'euro',
@@ -131,6 +131,22 @@ export default defineComponent({
       if (!item) return
       this.selected = item.value
     },
+    login(){
+      this.cloak.logout("redirectUri:http:localhost:8080")
+    }
+      /*
+      fetch("http://www.localhost:8080/realms/pokemon/protocol/openid-connect/logout?id_token_hint="+
+          window.localStorage.getItem("keycloakToken")
+          + "&post_logout_redirect_uri=http://localhost:5173",{
+        method:"POST",
+        mode:"no-cors",
+        headers: {
+          'Content-Type': 'pplication/x-www-form-urlencoded',
+        }
+      })
+    }
+
+       */
   },
   watch: {
     group() {

@@ -5,6 +5,8 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import 'vuetify/styles'
 import Keycloak from "keycloak-js";
+import app from "@/App.vue";
+
 
 
 loadFonts()
@@ -12,39 +14,48 @@ loadFonts()
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',
-    url: 'http://127.0.0.1:8080/',
+    url: 'http://127.0.0.1:8080',
 }
+
+
 
 export async function authenticateAgainstKeycloak(): Promise<void> {
-    try {
-        const keycloak = Keycloak(initOptions)
-        await keycloak.init({
-            onLoad: 'login-required',
-        }).then((auth) => {
 
-            if (!auth) {
-                window.location.reload()
-            } else {
-                console.log('Authenticated')
-            }
 
-            if (keycloak.token) {
-                window.localStorage.setItem('keycloakToken', keycloak.token)
-            }
-        })
-        await router.push('/')
-    } catch (e) {
-        console.log("Failed To get Token From Keycloak", e)
-    }
+
 
 }
+
 
 
 function instantiateVueApp() {
-    createApp(App)
-        .use(router)
-        .use(vuetify)
-        .mount('#app')
+ const app = createApp(App)
+    app.config.globalProperties.keycloak = new Keycloak(initOptions)
+
+    app.component("child-component",{
+        async mounted() {
+            await this.keycloak.init({
+                adapter: 'default',
+                onLoad: 'login-required',
+            }).then((auth) => {
+
+                if (!auth) {
+                    console.log("reload")
+                    window.location.reload()
+                } else {
+
+                    console.log('Authenticated')
+                }
+
+                if (this.keycloak.token) {
+                    console.log("token")
+                    window.localStorage.setItem('keycloakToken', this.keycloak.token)
+                }
+            })
+            await router.push('/')
+        }
+    })
+    app.use(router).use(vuetify).mount('#app')
 }
 
 if (!window.localStorage.getItem('keycloakToken')) {

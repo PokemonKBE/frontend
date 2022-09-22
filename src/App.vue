@@ -10,6 +10,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import BarView from "@/views/BarView.vue";
+import router from "@/router";
 
 export default defineComponent({
   name: 'App',
@@ -21,5 +22,6 @@ export default defineComponent({
       //
     }
   },
+
 })
 </script>
