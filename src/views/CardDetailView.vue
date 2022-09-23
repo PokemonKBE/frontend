@@ -1,6 +1,9 @@
 <template>
   <v-container class="picture" fluid style="height: 100%;">
-    <v-card>
+    <v-card
+        style="background-color: #383838; color: white"
+        class="mx-auto"
+      >
       <v-row>
         <v-col>
 
@@ -41,7 +44,7 @@
       </v-row>
 
 
-      <v-btn @click="goBack">back</v-btn>
+      <v-btn @click="goBack" color="#D9B521">back</v-btn>
 
     </v-card>
 
@@ -56,6 +59,7 @@ export default {
   name: "CardDetailView",
   data() {
     return {
+      path:"src/assets/",
       id: Number,
       temp: [],
       card: {
@@ -81,12 +85,17 @@ export default {
       this.temp = response.data
     })
      this.card = this.temp.filter((temp) => temp.id === this.id)[0]
+     this.buildPath()
 
   },
 
   methods: {
-
+    buildPath(){
+      this.path = this.path + this.card.name +".png"
+      console.log(this.path)
+    },
     goBack() {
+      console.log(this.card.name)
       router.push("/buy-cards")
     }
   }
@@ -95,9 +104,20 @@ export default {
 
 <style scoped>
 .picture {
-  background: url("../assets/poki.png") no-repeat center center fixed;
+  background: url("../assets/DarkBackground.png") no-repeat center center fixed;
   background-size: cover;
   position: static;
   overflow-x: hidden;
+}
+
+.v-card {
+
+  border-color: #D9B521;
+  border-width: 2px;
+}
+
+.v-img {
+  margin: 10px;
+  background-color: #999999;
 }
 </style>

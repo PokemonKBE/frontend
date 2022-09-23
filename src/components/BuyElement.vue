@@ -2,14 +2,14 @@
   <v-card
       style="background-color: #383838; color: white"
       class="mx-auto">
-
+<!--
     <v-img
         contain
         style=""
         v-bind:src="'src/assets/' + cardProp.name + '.png'"
         cover
         class="text-white"></v-img>
-
+-->
     <v-card-title>
       {{ cardProp.name }}
       <!--      This is a titleEOWIPDJ-->
@@ -19,6 +19,8 @@
       {{ cardProp.price }}
       <!--      This is a text-->
     </v-card-text>
+    <v-spacer></v-spacer>
+    <v-btn color="#D9B521" @click="routeToCardDetail">details</v-btn>
   </v-card>
 
 </template>
@@ -29,6 +31,8 @@ const props = defineProps(['cardProp', 'img'])
 </script>
 
 <script>
+import router from "../router";
+
 export default {
   name: "BuyElement",
   data: () => ({
@@ -40,6 +44,10 @@ export default {
   },
 
   methods: {
+    routeToCardDetail() {
+      router.push("/card-detail/"+ this.$props.cardProp.id)
+
+    }
   }
 }
 </script>
