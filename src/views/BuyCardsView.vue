@@ -1,66 +1,59 @@
 <template>
   <v-container class="picture" fluid style="height: 100%;">
+    <v-container class="justify-center">
+      <v-container grid-list fill-height class="area justify-start">
 
-    <div class="pokiCard">
-      <v-card
-          class="mx-auto"
-          width="1200"
-          height="400">
+        <div class="pokiCard"
+        v-for="card in cards">
 
-        <template v-slot:title>
-          This is a title
-        </template>
+          <BuyElement :card-prop="card" :img="card.name"/>
 
-        <v-card-text>
-          This is content
-        </v-card-text>
-      </v-card>
-    </div>
+        </div>
 
-    <div class="pokiCard">
-      <v-card
-          class="mx-auto"
-          width="1200"
-          height="400">
 
-        <template v-slot:title>
-          This is a title
-        </template>
+      </v-container>
+    </v-container>
 
-        <v-card-text>
-          This is content
-        </v-card-text>
-      </v-card>
-    </div>
-
-    <div class="pokiCard">
-      <v-card
-          class="mx-auto"
-          width="1200"
-          height="400">
-
-        <template v-slot:title>
-          This is a title
-        </template>
-
-        <v-card-text>
-          This is content
-        </v-card-text>
-      </v-card>
-    </div>
   </v-container>
 </template>
 
 <script>
+import DataService from "../service/DataService";
+import BuyElement from "../components/BuyElement.vue";
+
 export default {
   name: "BuyCardView",
-  data: () => ({}),
+  components: {BuyElement},
+  data: () => ({
+    cards: [],
+    filteredCards: [],
+  }),
+  mounted() {
+    this.loadCards()
+  },
+
+  methods: {
+    async loadCards() {
+      await DataService.getCards().then((response) => {
+        this.cards = response.data
+        console.log(this.cards)
+      })
+      //
+      // console.log(this.cards)
+      // this.cards.forEach((element) => {
+      //   this.filteredCards.push((({id, name, price}) => ({id, name, price}))(element));
+      // })
+      // console.log(this.filteredCards)
+
+    }
+  }
 }
+
 </script>
 
 <style scoped>
 .picture {
-  background: url("../assets/poki.png") no-repeat center center fixed;
+  background: url("../assets/DarkBackground.png") no-repeat center center fixed;
   background-size: cover;
   position: static;
   overflow-x: hidden;
@@ -68,5 +61,13 @@ export default {
 
 .pokiCard {
   padding-top: 10px;
+  text-align: left;
+  display: inline-block;
+  margin: 50px;
+}
+
+.area {
+  max-height: 90%;
+  margin-bottom: 100px;
 }
 </style>
