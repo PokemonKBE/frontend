@@ -7,7 +7,6 @@ class DataService {
     async getCards() {
         let value = await axios.get(api_base_url + "/get-cards")
         console.log(value)
-
         return value
     }
 

@@ -12,7 +12,12 @@
         </template>
 
         <v-card-text>
-          This is content
+          {{ otto }}:
+          <router-view v-slot="{ CardDetailView }">
+            <component :is="CardDetailView" id="0" />
+          </router-view>
+          <v-btn @click="vorwand">go</v-btn>
+
         </v-card-text>
       </v-card>
     </div>
@@ -52,9 +57,35 @@
 </template>
 
 <script>
+
+
+import router from "../router";
+import DataService from "../service/DataService";
+
+
+
 export default {
   name: "BuyCardView",
-  data: () => ({}),
+  data: () => ({
+    peter: [],
+    otto:"",
+  }),
+
+  mounted() {
+    DataService.getCards().then((response) => {
+      this.peter = response.data
+      this.otto = this.peter[3]
+    })
+
+  },
+  methods: {
+    vorwand() {
+
+      router.push("/card-detail/"+ this.otto.id)
+
+    }
+  }
+
 }
 </script>
 
