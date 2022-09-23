@@ -6,7 +6,7 @@
     <v-img
         contain
         style=""
-        v-bind:src="'src/assets/' + img + '.png'"
+        v-bind:src="'src/assets/' + cardProp.name + '.png'"
         cover
         class="text-white"></v-img>
 
@@ -30,11 +30,13 @@ const props = defineProps(['cardProp', 'img'])
 
 <script>
 export default {
-  name: "KackView",
+  name: "BuyElement",
   data: () => ({
+    imgPath: ""
   }),
 
   mounted() {
+    console.log("This is me: " + this.$props.img)
   },
 
   methods: {

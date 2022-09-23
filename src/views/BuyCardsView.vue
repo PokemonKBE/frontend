@@ -28,7 +28,7 @@ export default {
     cards: [],
     filteredCards: [],
   }),
-  created() {
+  mounted() {
     this.loadCards()
   },
 
