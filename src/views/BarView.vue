@@ -1,7 +1,7 @@
 <template>
   <v-sheet>
     <v-card>
-      <v-app-bar app fixed color="#f6efe8">
+      <v-app-bar app style="background-color: #383838; color: lightyellow" fixed color="#f6efe8">
 
         <v-app-bar-nav-icon class="white--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title class="">gOtta buy em all</v-toolbar-title>
@@ -12,7 +12,7 @@
 
     <v-navigation-drawer
         v-model="drawer"
-        color="#f6efe8">
+        style="background-color: #383838">
 
       <v-list
           nav
@@ -32,7 +32,7 @@
       </v-list>
 
       <div class="pa-2">
-        <v-btn @click="test()" block color="#AED581">
+        <v-btn @click="test()" block color="#D9B521">
           Login
         </v-btn>
       </div>
@@ -41,6 +41,7 @@
         <div class="pa-2 align-content-center">
 
           <v-select
+              style="background-color: white"
               label="Currency"
               :items="currencies"
               v-model="selected"
@@ -48,6 +49,7 @@
           >
             <template v-slot:item="{ item }">
               <v-list-item
+                  style="background-color: white"
                   @click="clicked(item)"
               >
                 <template v-slot:prepend>
@@ -152,15 +154,19 @@ export default defineComponent({
 
 <style>
 .nav-menu .v-list-item {
-  background: #E0E0E0;
+  background: #383838;
+  color: white;
 }
 
 .nav-menu .v-list-item:hover {
-  background: #DCEDC8;
+  background: #DAC06F;
+  color: black;
 }
 
 .nav-menu .v-list-item.v-list-item--active {
-  background: #DCEDC8;
+  background: #D9B521;
+  color: black;
+
 }
 
 </style>
