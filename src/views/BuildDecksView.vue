@@ -7,7 +7,7 @@
         <v-btn
             block
             class="buildButton"
-            :disabled="cardChosen">
+            :disabled="deckDisabled">
           Build Your Deck
 
           <v-dialog
@@ -113,7 +113,7 @@ export default {
     cards: [],
     dialog: false,
     deckName: "",
-    cardChosen: true,
+    deckDisabled: true,
   }),
 
   mounted() {
@@ -135,9 +135,13 @@ export default {
         this.selection.push(card)
       }
 
-      if(this.selection.length !== 0) {
-        this.cardChosen = false
+      if (this.selection.length !== 0) {
+        this.deckDisabled = false
+      } else {
+        this.deckDisabled = true
       }
+      debugger
+      console.log(this.selection)
     },
 
     buildDeck() {
@@ -149,7 +153,7 @@ export default {
       this.deckName = ""
     },
 
-    required (v) {
+    required(v) {
       return !!v || 'Field is required'
     }
   }
