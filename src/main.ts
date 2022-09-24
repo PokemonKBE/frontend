@@ -10,6 +10,7 @@ import { createStore } from 'vuex'
 
 loadFonts()
 
+
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',

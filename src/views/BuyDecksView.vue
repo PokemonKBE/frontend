@@ -2,44 +2,45 @@
   <v-container class="picture" fluid style="height: 100%;">
     <v-container class="justify-center">
       <v-container grid-list fill-height class="area justify-start">
-
         <div class="pokiCard"
-             v-for="card in cards">
+             v-for="deck in decks">
 
-          <BuyElement :card-prop="card" :img="card.name" :path="detailpath"/>
-<!--          {{ card.name }}-->
+          <BuyElement :cardProp="deck" :img="imgName" :path="detailpath"/>
+
         </div>
-
       </v-container>
     </v-container>
   </v-container>
 </template>
 
 <script>
-import DataService from "../service/DataService.ts";
+import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
 
-
 export default {
-  name: "BuyCardView",
+  name: "BuySetView",
   components: {BuyElement},
+
   data: () => ({
-    cards: [],
+    decks: [],
+    imgName: "Ditto",
+    detailpath: "/deck-detail/"
   }),
-  mounted() {
-    this.loadCards()
-    console.log(this.cards.name)
+
+  created() {
+    this.getDecks()
   },
 
   methods: {
-    async loadCards() {
-      await DataService.getCards().then((response) => {
-        this.cards = response.data
+    async getDecks() {
+      await DataService.getDecks().then((response) => {
+        this.decks = response.data
+
       })
     }
   }
-}
 
+}
 </script>
 
 <style scoped>
@@ -61,4 +62,5 @@ export default {
   max-height: 90%;
   margin-bottom: 100px;
 }
+
 </style>

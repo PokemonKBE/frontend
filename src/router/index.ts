@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/buy-sets',
       name: 'buy-sets',
-      component: () => import('../views/BuySetsView.vue')
+      component: () => import('../views/BuyDecksView.vue')
     },
     {
       path: '/buy-cards',
@@ -22,7 +22,16 @@ const router = createRouter({
     {
       path: '/build-sets',
       name: 'build-sets',
-      component: () => import('../views/BuildSetsView.vue')
+      component: () => import('../views/BuildDecksView.vue')
+    },
+    {
+      path: '/card-detail/:id',
+      name: 'card-detail',
+      component: () => import('../views/CardDetailView.vue')
+    },{
+      path: '/deck-detail/:id',
+      name: 'deck-detail',
+      component: () => import('../views/DeckDetailView.vue')
     }
 
       // route level code-splitting
