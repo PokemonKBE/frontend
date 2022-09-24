@@ -6,7 +6,7 @@
         <div class="pokiCard"
              v-for="card in cards">
 
-          <BuyElement :card-prop="card" :img="card.name" :path="detailpath"/>
+          <BuyElement :card-prop="card" :img="card.name" :path="detailPath"/>
         </div>
 
       </v-container>
@@ -28,6 +28,8 @@ export default {
     cards: [],
     newPrices: [],
     tempNumber: 0,
+    detailPath: "/card-detail/",
+
   }),
 
   async mounted() {

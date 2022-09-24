@@ -5,7 +5,7 @@
         <div class="pokiCard"
              v-for="deck in decks">
 
-          <BuyElement :cardProp="deck" :img="imgName" :path="detailpath"/>
+          <BuyElement :cardProp="deck" :img="imgName" :path="detailPath"/>
 
         </div>
       </v-container>
@@ -26,7 +26,7 @@ export default {
   data: () => ({
     decks: [],
     imgName: "Ditto",
-    detailpath: "/deck-detail/"
+    detailPath: "/deck-detail/",
     newPrices: [],
     tempNumber: 0,
   }),
