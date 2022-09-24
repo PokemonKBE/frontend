@@ -23,6 +23,10 @@ const router = createRouter({
       path: '/build-sets',
       name: 'build-sets',
       component: () => import('../views/BuildDecksView.vue')
+    },{
+      path: '/card-detail/:id',
+      name: 'card-detail',
+      component: () => import('../views/CardDetailView.vue')
     }
 
       // route level code-splitting

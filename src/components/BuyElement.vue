@@ -20,6 +20,8 @@
       {{ cardProp.price }}
       <!--      This is a text-->
     </v-card-text>
+    <v-spacer></v-spacer>
+    <v-btn color="#D9B521" @click="routeToCardDetail">details</v-btn>
   </v-card>
 
 </template>
@@ -30,6 +32,8 @@ const props = defineProps(['cardProp', 'img'])
 </script>
 
 <script>
+import router from "../router";
+
 export default {
   name: "BuyElement",
   data: () => ({
@@ -40,7 +44,12 @@ export default {
     console.log(this.$props.img)
   },
 
-  methods: {}
+  methods: {
+    routeToCardDetail() {
+      router.push("/card-detail/"+ this.$props.cardProp.id)
+
+    }
+  }
 }
 </script>
 
