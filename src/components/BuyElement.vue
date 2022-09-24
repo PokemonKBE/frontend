@@ -1,14 +1,15 @@
 <template>
   <v-card
       style="background-color: #383838; color: white"
-      class="mx-auto">
+      class="mx-auto align-content-center">
 
-    <v-img
-        contain
-        style=""
-        v-bind:src="'src/assets/' + cardProp.name + '.png'"
-        cover
-        class="text-white"></v-img>
+    <div class="fill">
+      <img
+          style=""
+          :src="'src/assets/' + img + '.png'"
+          cover
+          class="text-white">
+    </div>
 
     <v-card-title>
       {{ cardProp.name }}
@@ -36,11 +37,10 @@ export default {
   }),
 
   mounted() {
-    console.log("This is me: " + this.$props.img)
+    console.log(this.$props.img)
   },
 
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
@@ -53,9 +53,26 @@ export default {
   border-width: 2px;
 }
 
-.v-img {
-  margin: 10px;
+img {
+
+  /*object-fit: cover;*/
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.fill {
+  display: flex;
+  margin: 7px;
+  justify-content: center;
   background-color: #999999;
+  align-items: center;
+  overflow: hidden
+}
+
+.fill img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
 }
 
 </style>
