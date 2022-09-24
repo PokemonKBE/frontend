@@ -41,7 +41,7 @@
         <div class="pa-2 align-content-center">
 
           <v-select
-              style="background-color: white"
+              style="color: white"
               label="Currency"
               :items="currencies"
               v-model="selected"
@@ -49,7 +49,7 @@
           >
             <template v-slot:item="{ item }">
               <v-list-item
-                  style="background-color: white"
+                  style="color: white"
                   @click="clicked(item)"
               >
                 <template v-slot:prepend>
@@ -156,6 +156,7 @@ export default defineComponent({
 .nav-menu .v-list-item {
   background: #383838;
   color: white;
+
 }
 
 .nav-menu .v-list-item:hover {
@@ -166,7 +167,6 @@ export default defineComponent({
 .nav-menu .v-list-item.v-list-item--active {
   background: #D9B521;
   color: black;
-
 }
 
 </style>
