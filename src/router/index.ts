@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/buy-sets',
       name: 'buy-sets',
-      component: () => import('../views/BuySetsView.vue')
+      component: () => import('../views/BuyDecksView.vue')
     },
     {
       path: '/buy-cards',

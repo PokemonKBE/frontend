@@ -4,41 +4,47 @@
       <v-container grid-list fill-height class="area justify-start">
 
         <div class="pokiCard"
-             v-for="card in cards">
+             v-for="deck in decks">
 
-          <BuyElement :card-prop="card" :img="card.name"/>
-<!--          {{ card.name }}-->
+          <BuyElement :cardProp="deck" :img="imgName"/>
+
         </div>
+
 
       </v-container>
     </v-container>
+
   </v-container>
+
 </template>
 
 <script>
 import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
 
-
 export default {
-  name: "BuyCardView",
+  name: "BuySetView",
   components: {BuyElement},
+
   data: () => ({
-    cards: [],
+    decks: [],
+    imgName: "Ditto",
   }),
-  mounted() {
-    this.loadCards()
+
+  created() {
+    this.getDecks()
   },
 
   methods: {
-    async loadCards() {
-      await DataService.getCards().then((response) => {
-        this.cards = response.data
+    async getDecks() {
+      await DataService.getDecks().then((response) => {
+        this.decks = response.data
+        console.log(this.decks)
       })
     }
   }
-}
 
+}
 </script>
 
 <style scoped>
@@ -60,4 +66,5 @@ export default {
   max-height: 90%;
   margin-bottom: 100px;
 }
+
 </style>
