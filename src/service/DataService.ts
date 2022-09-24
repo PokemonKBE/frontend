@@ -6,28 +6,19 @@ const api_base_url = "http://localhost:8082/api"
 
 class DataService {
     async getCards() {
-        let value = await axios.get(api_base_url + "/get-cards")
-        console.log(value)
-
-        return value
+        return await axios.get(api_base_url + "/get-cards")
     }
 
     async getDecks() {
-        let value = await axios.get(api_base_url + "/get-decks")
-        console.log(value)
-
-        return value
+        return await axios.get(api_base_url + "/get-decks")
     }
 
     async getCurrency(currencyRequest: CurrencyRequest) {
-        let value = await axios.get(api_base_url + "/get-currency", {
+        return await axios.get(api_base_url + "/get-currency", {
             params: {
                 ...currencyRequest
             }
         })
-        console.log(value)
-
-        return value
     }
 
     async postDeck(deck: PokemonDeckRequest) {

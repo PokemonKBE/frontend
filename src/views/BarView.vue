@@ -32,7 +32,7 @@
       </v-list>
 
       <div class="pa-2">
-        <v-btn @click="test()" block color="#D9B521">
+        <v-btn block color="#D9B521">
           Login
         </v-btn>
       </div>
@@ -45,7 +45,6 @@
               label="Currency"
               :items="currencies"
               v-model="selected"
-
           >
             <template v-slot:item="{ item }">
               <v-list-item
@@ -66,15 +65,11 @@
     </v-navigation-drawer>
 
   </v-sheet>
-
 </template>
 
 <script lang='ts'>
-import {CurrencyRequest} from '@/dto/CurrencyRequest'
 import {defineComponent, ref} from 'vue'
-import DataService from '../service/DataService'
-import {PokemonCardRequest} from "@/dto/PokemonCardRequest";
-import {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
+import currency from "@/state-management/currency";
 
 export default defineComponent({
   name: 'BarView',
@@ -82,8 +77,8 @@ export default defineComponent({
   data: () => ({
     drawer: false,
     group: null,
-    selected: 'euro',
-    thing: null,
+
+    selected: currency().currentCurrency.value,
 
     items: [
       {
@@ -106,27 +101,27 @@ export default defineComponent({
     currencies: [
       {
         title: 'US Dollar',
-        value: 'us-dollar',
+        value: 'USD',
         // symbol: '$',
         icon: 'mdi-currency-usd'
       },
       {
         title: 'Euro',
         // symbol: '€',
-        value: 'euro',
+        value: 'EUR',
         icon: 'mdi-currency-eur'
 
       },
       {
         title: 'Yen',
-        value: 'yen',
+        value: 'YEN',
         // symbol: '¥',
         icon: 'mdi-currency-jpy'
 
       },
       {
         title: 'Peso',
-        value: 'peso',
+        value: 'PHP',
         // symbol: '₱',
         icon: 'mdi-currency-php'
       }
@@ -137,15 +132,12 @@ export default defineComponent({
     clicked(item: any) {
       if (!item) return
       this.selected = item.value
-    },
-
-    test() {
-      DataService.getCards().then((response: any) => {
-        this.thing = response.data
-      })
-      console.log(this.thing)
+      currency().setCurrency(item.value)
+      localStorage.setItem("currency", item.value)
+      location.reload()
     },
   },
+
   watch: {
     group() {
       this.drawer = false;
