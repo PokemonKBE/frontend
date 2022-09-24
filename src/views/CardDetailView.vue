@@ -1,5 +1,5 @@
 <template>
-  <v-container class="picture" fluid style="height: 100%;">
+  <v-container class="picture" fluid style="height: 100%; padding-top: 100px">
     <v-card
         style="background-color: #383838; color: white"
         class="mx-auto"
@@ -57,6 +57,8 @@
 <script>
 import router from "../router";
 import DataService from "../service/DataService";
+import currency from "../state-management/currency";
+import {CurrencyRequest} from "../dto/CurrencyRequest";
 
 export default {
   name: "CardDetailView",
@@ -77,8 +79,8 @@ export default {
         rarity: String,
         number: String,
         illustrator: String,
-        price: String
-      }
+        price: Number
+      },
     }
   },
   created() {
@@ -91,9 +93,18 @@ export default {
     this.card = this.temp.filter((temp) => temp.id === this.id)[0]
     this.buildPath()
 
+    const presentCurrency = currency().currentCurrency.value
+    const currencyRequest = new CurrencyRequest(presentCurrency, this.card.price)
+
+    await DataService.getCurrency(currencyRequest).then((response) => {
+      this.card.price = response.data
+    })
+
   },
 
   methods: {
+
+
     buildPath(){
       this.path = this.pathsrc + this.card.name + ".png"
     },
@@ -116,6 +127,8 @@ export default {
 .v-card {
   border-color: #D9B521;
   border-width: 2px;
+  max-height: 1000px;
+  max-width: 1300px;
 }
 
 img {
