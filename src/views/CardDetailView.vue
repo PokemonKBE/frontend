@@ -114,7 +114,6 @@ export default {
 }
 
 .v-card {
-
   border-color: #D9B521;
   border-width: 2px;
 }

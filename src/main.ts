@@ -9,12 +9,6 @@ import Keycloak from "keycloak-js";
 
 loadFonts()
 
-createApp(App)
-    .use(router)
-    .use(vuetify)
-    .mount('#app')
-
-/*
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',
@@ -61,4 +55,4 @@ if (!window.localStorage.getItem('keycloakToken')) {
     instantiateVueApp()
 }
 
-*/
+

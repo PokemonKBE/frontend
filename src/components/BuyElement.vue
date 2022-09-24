@@ -13,15 +13,19 @@
 
     <v-card-title>
       {{ cardProp.name }}
-      <!--      This is a titleEOWIPDJ-->
     </v-card-title>
 
     <v-card-text>
       {{ cardProp.price }}
-      <!--      This is a text-->
     </v-card-text>
-    <v-spacer></v-spacer>
-    <v-btn color="#D9B521" @click="routeToCardDetail">details</v-btn>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="#D9B521"
+             @click="routeToCardDetail">
+        details
+      </v-btn>
+    </v-card-actions>
   </v-card>
 
 </template>

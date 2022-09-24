@@ -25,7 +25,6 @@ export default {
   components: {BuyElement},
   data: () => ({
     cards: [],
-    detailpath: "/card-detail/"
   }),
   mounted() {
     this.loadCards()
