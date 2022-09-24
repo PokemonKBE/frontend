@@ -16,6 +16,8 @@
 <script>
 import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
+import {CurrencyRequest} from "../dto/CurrencyRequest";
+import currency from "../state-management/currency";
 
 export default {
   name: "BuySetView",
@@ -24,10 +26,25 @@ export default {
   data: () => ({
     decks: [],
     imgName: "Ditto",
+    newPrices: [],
+    tempNumber: 0,
   }),
 
-  created() {
-    this.getDecks()
+  async mounted() {
+    await this.getDecks()
+
+    let presentCurrency = currency().currentCurrency.value
+
+    let oldPrices = this.decks.map((deck) => deck.price)
+
+    for (let i = 0; i < oldPrices.length; i++) {
+      await this.loadNewPrices(presentCurrency, oldPrices[i])
+    }
+
+    for (let i = 0; i < this.decks.length; i++) {
+      this.decks[i].price = this.newPrices[i]
+    }
+
   },
 
   methods: {
@@ -36,7 +53,17 @@ export default {
         this.decks = response.data
         console.log(this.decks)
       })
-    }
+    },
+
+    async loadNewPrices(curr, oldPrice) {
+      let currencyRequest = new CurrencyRequest(curr, oldPrice)
+
+      await DataService.getCurrency(currencyRequest).then((response) => {
+        this.tempNumber = response.data
+        this.newPrices.push(this.tempNumber)
+      })
+    },
+
   }
 
 }
