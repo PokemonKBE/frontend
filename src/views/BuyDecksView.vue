@@ -2,20 +2,15 @@
   <v-container class="picture" fluid style="height: 100%;">
     <v-container class="justify-center">
       <v-container grid-list fill-height class="area justify-start">
-
         <div class="pokiCard"
              v-for="deck in decks">
 
           <BuyElement :cardProp="deck" :img="imgName"/>
 
         </div>
-
-
       </v-container>
     </v-container>
-
   </v-container>
-
 </template>
 
 <script>

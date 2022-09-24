@@ -7,7 +7,6 @@
              v-for="card in cards">
 
           <BuyElement :card-prop="card" :img="card.name"/>
-<!--          {{ card.name }}-->
         </div>
 
       </v-container>

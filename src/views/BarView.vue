@@ -70,8 +70,11 @@
 </template>
 
 <script lang='ts'>
+import {CurrencyRequest} from '@/dto/CurrencyRequest'
 import {defineComponent, ref} from 'vue'
 import DataService from '../service/DataService'
+import {PokemonCardRequest} from "@/dto/PokemonCardRequest";
+import {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
 
 export default defineComponent({
   name: 'BarView',
@@ -137,11 +140,11 @@ export default defineComponent({
     },
 
     test() {
-      DataService.getCards().then((response) => {
+      DataService.getCards().then((response: any) => {
         this.thing = response.data
       })
       console.log(this.thing)
-    }
+    },
   },
   watch: {
     group() {
