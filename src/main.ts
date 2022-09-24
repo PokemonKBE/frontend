@@ -9,6 +9,7 @@ import Keycloak from "keycloak-js";
 
 loadFonts()
 
+
 const initOptions = {
     realm: 'pokemon',
     clientId: 'vue',
