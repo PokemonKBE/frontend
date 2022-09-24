@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/build-sets',
       name: 'build-sets',
-      component: () => import('../views/BuildSetsView.vue')
+      component: () => import('../views/BuildDecksView.vue')
     },{
       path: '/card-detail/:id',
       name: 'card-detail',

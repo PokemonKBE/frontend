@@ -3,17 +3,23 @@
     <v-card
         style="background-color: #383838; color: white"
         class="mx-auto"
-      >
+    >
       <v-row>
         <v-col>
+          <img
+              style=""
+              :src="this.path"
+              cover
+              class="text-white">
 
         </v-col>
         <v-col>
+
+            <v-card-title>{{ this.card.name }}</v-card-title>
+              <v-divider color="white"></v-divider>
+
           <v-col>
-            Name: {{ this.card.name }}
-          </v-col>
-          <v-col>
-            Description: {{ this.card.description }}
+            {{ this.card.description }}
           </v-col>
           <v-col>
             HP: {{ this.card.hp }}
@@ -31,20 +37,20 @@
             Expansion: {{ this.card.expansion }}
           </v-col>
           <v-col>
-           Stage: {{ this.card.stage }}
+            Stage: {{ this.card.stage }}
           </v-col>
           <v-col>
-           Number: {{ this.card.number }}
+            Number: {{ this.card.number }}
           </v-col>
           <v-col>
-          Price: {{ this.card.price }}
+            Price: {{ this.card.price }}
           </v-col>
 
         </v-col>
       </v-row>
 
 
-      <v-btn @click="goBack" color="#D9B521">back</v-btn>
+      <v-btn @click="goBack"   color="black">back</v-btn>
 
     </v-card>
 
@@ -59,40 +65,40 @@ export default {
   name: "CardDetailView",
   data() {
     return {
-      path:"src/assets/",
+      pathsrc: "http://localhost:5173/src/assets/",
+      path: String,
       id: Number,
       temp: [],
       card: {
-        id:Number,
-        name:String,
-        description:String,
-        hp:String,
-        type:String,
-        stage:String,
-        expansion:String,
-        rarity:String,
-        number:String,
-        illustrator:String,
-        price:String
+        id: Number,
+        name: String,
+        description: String,
+        hp: String,
+        type: String,
+        stage: String,
+        expansion: String,
+        rarity: String,
+        number: String,
+        illustrator: String,
+        price: String
       }
     }
   },
   created() {
     this.id = Number(this.$route.params.id);
   },
-   async mounted() {
+  async mounted() {
     await DataService.getCards().then((response) => {
       this.temp = response.data
     })
-     this.card = this.temp.filter((temp) => temp.id === this.id)[0]
-     this.buildPath()
+    this.card = this.temp.filter((temp) => temp.id === this.id)[0]
+    this.buildPath()
 
   },
 
   methods: {
     buildPath(){
-      this.path = this.path + this.card.name +".png"
-      console.log(this.path)
+      this.path = this.pathsrc + this.card.name + ".png"
     },
     goBack() {
       console.log(this.card.name)
@@ -116,8 +122,10 @@ export default {
   border-width: 2px;
 }
 
-.v-img {
+img {
   margin: 10px;
   background-color: #999999;
+  max-height: 100%;
+  max-width: 100%;
 }
 </style>
