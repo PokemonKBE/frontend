@@ -19,8 +19,13 @@
       {{ cardProp.price }}
     </v-card-text>
 
-    <v-spacer></v-spacer>
-    <v-btn color="#D9B521" @click="routeToCardDetail">details</v-btn>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="#D9B521"
+             @click="routeToCardDetail">
+        details
+      </v-btn>
+    </v-card-actions>
   </v-card>
 
 </template>
