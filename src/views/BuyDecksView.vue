@@ -5,7 +5,7 @@
         <div class="pokiCard"
              v-for="deck in decks">
 
-          <BuyElement :cardProp="deck" :img="imgName"/>
+          <BuyElement :cardProp="deck" :img="imgName" :path="detailpath"/>
 
         </div>
       </v-container>
@@ -24,6 +24,7 @@ export default {
   data: () => ({
     decks: [],
     imgName: "Ditto",
+    detailpath: "/deck-detail/"
   }),
 
   created() {
@@ -34,7 +35,7 @@ export default {
     async getDecks() {
       await DataService.getDecks().then((response) => {
         this.decks = response.data
-        console.log(this.decks)
+
       })
     }
   }
