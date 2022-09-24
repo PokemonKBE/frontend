@@ -2,49 +2,50 @@
   <v-container class="picture" fluid style="height: 100%;">
     <v-container class="justify-center">
       <v-container grid-list fill-height class="area justify-start">
-
+          <h1 >{{ this.deck.name }}</h1>
+        <v-divider color="white"></v-divider>
         <div class="pokiCard"
-             v-for="deck in decks">
+             v-for="card in cards">
 
-          <BuyElement :cardProp="deck" :img="imgName" :path="detailpath"/>
+          <BuyElement :card-prop="card" :img="card.name" :path="detailpath"/>
 
         </div>
 
-
       </v-container>
     </v-container>
-
   </v-container>
 
 </template>
 
 <script>
+
 import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
 
 export default {
-  name: "BuySetView",
+  name: "DeckDetailView",
   components: {BuyElement},
-
   data: () => ({
-    decks: [],
-    imgName: "Ditto",
-    detailpath: "/deck-detail/"
+    id: Number,
+    cards: [],
+    deck:[],
+    detailpath: "/card-detail/"
   }),
-
   created() {
-    this.getDecks()
+    this.id = Number(this.$route.params.id);
+  },
+  mounted() {
+    this.loadCards()
   },
 
   methods: {
-    async getDecks() {
+    async loadCards() {
       await DataService.getDecks().then((response) => {
-        this.decks = response.data
-
+        this.cards = response.data.filter(deck => deck.id === this.id )[0].pokemonCardList
+        this.deck = response.data.filter(deck => deck.id === this.id)[0]
       })
     }
   }
-
 }
 </script>
 
@@ -66,6 +67,12 @@ export default {
 .area {
   max-height: 90%;
   margin-bottom: 100px;
+}
+
+h1 {
+  color: #f2f2f2;
+  text-align: center;
+  background-color: #999999;
 }
 
 </style>

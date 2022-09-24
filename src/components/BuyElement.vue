@@ -6,7 +6,7 @@
     <div class="fill">
       <img
           style=""
-          :src="'src/assets/' + img + '.png'"
+          :src="'http://localhost:5173/src/assets/' + img + '.png'"
           cover
           class="text-white">
     </div>
@@ -28,7 +28,7 @@
 
 
 <script setup>
-const props = defineProps(['cardProp', 'img'])
+const props = defineProps(['path','cardProp', 'img'])
 </script>
 
 <script>
@@ -46,7 +46,8 @@ export default {
 
   methods: {
     routeToCardDetail() {
-      router.push("/card-detail/"+ this.$props.cardProp.id)
+
+      router.push(this.$props.path+ this.$props.cardProp.id)
 
     }
   }

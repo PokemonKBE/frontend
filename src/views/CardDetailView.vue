@@ -49,9 +49,6 @@
         </v-col>
       </v-row>
 
-
-      <v-btn @click="goBack"   color="black">back</v-btn>
-
     </v-card>
 
   </v-container>

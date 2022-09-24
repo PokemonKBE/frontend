@@ -6,7 +6,7 @@
         <div class="pokiCard"
              v-for="card in cards">
 
-          <BuyElement :card-prop="card" :img="card.name"/>
+          <BuyElement :card-prop="card" :img="card.name" :path="detailpath"/>
 <!--          {{ card.name }}-->
         </div>
 
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import DataService from "../service/DataService";
+import DataService from "../service/DataService.ts";
 import BuyElement from "../components/BuyElement.vue";
 
 
@@ -25,9 +25,11 @@ export default {
   components: {BuyElement},
   data: () => ({
     cards: [],
+    detailpath: "/card-detail/"
   }),
   mounted() {
     this.loadCards()
+    console.log(this.cards.name)
   },
 
   methods: {
