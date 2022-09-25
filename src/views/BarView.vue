@@ -68,13 +68,15 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref} from 'vue'
+import {defineComponent, getCurrentInstance ,ref} from 'vue'
+import DataService from '../service/DataService'
 import currency from "@/state-management/currency";
 
 export default defineComponent({
   name: 'BarView',
 
   data: () => ({
+   cloak: getCurrentInstance()?.appContext.config.globalProperties.keycloak,
     drawer: false,
     group: null,
 
@@ -135,6 +137,18 @@ export default defineComponent({
       currency().setCurrency(item.value)
       localStorage.setItem("currency", item.value)
       location.reload()
+    },
+    login(){
+    const cre = {redirectUri: "http://127.0.0.1:5173/"}
+    this.$store.state.cloak.logout(cre)
+    window.localStorage.removeItem("keycloakToken")
+  },
+
+    test() {
+      DataService.getCards().then((response: any) => {
+        this.thing = response.data
+      })
+      console.log(this.thing)
     },
   },
 

@@ -5,20 +5,43 @@ import type {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
 const api_base_url = "http://localhost:8082/api"
 
 class DataService {
+
     async getCards() {
-        return await axios.get(api_base_url + "/get-cards")
+        let value = await axios.get(api_base_url + "/get-cards"
+            ,
+            {
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
+                }})
+        console.log(value)
+
+        return value
     }
 
     async getDecks() {
-        return await axios.get(api_base_url + "/get-decks")
+        let value = await axios.get(api_base_url + "/get-decks",
+        {
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
+            }
+        })
+        console.log(value)
+
+        return value
     }
 
     async getCurrency(currencyRequest: CurrencyRequest) {
-        return await axios.get(api_base_url + "/get-currency", {
+        let value = await axios.get(api_base_url + "/get-currency", {
             params: {
                 ...currencyRequest
+            },
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
             }
         })
+        console.log(value)
+
+        return value
     }
 
     async postDeck(deck: PokemonDeckRequest) {
