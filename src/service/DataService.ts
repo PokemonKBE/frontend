@@ -13,7 +13,12 @@ class DataService {
     }
 
     async getDecks() {
-        let value = await axios.get(api_base_url + "/get-decks")
+        let value = await axios.get(api_base_url + "/get-decks",
+        {
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
+            }
+        })
         console.log(value)
 
         return value

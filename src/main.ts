@@ -12,6 +12,7 @@ loadFonts()
 
 
 const initOptions = {
+
     realm: 'pokemon',
     clientId: 'vue',
     url: 'http://127.0.0.1:8080/',

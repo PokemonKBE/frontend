@@ -70,15 +70,9 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, getCurrentInstance} from 'vue'
-import {CurrencyRequest} from '@/dto/CurrencyRequest'
-import {defineComponent, ref} from 'vue'
+import {defineComponent, getCurrentInstance ,ref} from 'vue'
 import DataService from '../service/DataService'
-import {PokemonCardRequest} from "@/dto/PokemonCardRequest";
-import {PokemonDeckRequest} from "@/dto/PokemonDeckRequest";
 
-import App from "@/App.vue";
-import {th} from "vuetify/lib/locale";
 export default defineComponent({
   name: 'BarView',
 
@@ -142,6 +136,11 @@ export default defineComponent({
       if (!item) return
       this.selected = item.value
     },
+    login(){
+    const cre = {redirectUri: "http://127.0.0.1:5173/"}
+    this.$store.state.cloak.logout(cre)
+    window.localStorage.removeItem("keycloakToken")
+  },
 
     test() {
       DataService.getCards().then((response: any) => {
