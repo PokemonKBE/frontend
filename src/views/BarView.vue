@@ -32,7 +32,7 @@
       </v-list>
 
       <div class="pa-2">
-        <v-btn @click="test()" block color="#D9B521">
+        <v-btn block color="#D9B521">
           Login
         </v-btn>
       </div>
@@ -45,7 +45,6 @@
               label="Currency"
               :items="currencies"
               v-model="selected"
-
           >
             <template v-slot:item="{ item }">
               <v-list-item
@@ -66,12 +65,12 @@
     </v-navigation-drawer>
 
   </v-sheet>
-
 </template>
 
 <script lang='ts'>
 import {defineComponent, getCurrentInstance ,ref} from 'vue'
 import DataService from '../service/DataService'
+import currency from "@/state-management/currency";
 
 export default defineComponent({
   name: 'BarView',
@@ -80,8 +79,8 @@ export default defineComponent({
    cloak: getCurrentInstance()?.appContext.config.globalProperties.keycloak,
     drawer: false,
     group: null,
-    selected: 'euro',
-    thing: null,
+
+    selected: currency().currentCurrency.value,
 
     items: [
       {
@@ -104,27 +103,27 @@ export default defineComponent({
     currencies: [
       {
         title: 'US Dollar',
-        value: 'us-dollar',
+        value: 'USD',
         // symbol: '$',
         icon: 'mdi-currency-usd'
       },
       {
         title: 'Euro',
         // symbol: '€',
-        value: 'euro',
+        value: 'EUR',
         icon: 'mdi-currency-eur'
 
       },
       {
         title: 'Yen',
-        value: 'yen',
+        value: 'YEN',
         // symbol: '¥',
         icon: 'mdi-currency-jpy'
 
       },
       {
         title: 'Peso',
-        value: 'peso',
+        value: 'PHP',
         // symbol: '₱',
         icon: 'mdi-currency-php'
       }
@@ -135,6 +134,9 @@ export default defineComponent({
     clicked(item: any) {
       if (!item) return
       this.selected = item.value
+      currency().setCurrency(item.value)
+      localStorage.setItem("currency", item.value)
+      location.reload()
     },
     login(){
     const cre = {redirectUri: "http://127.0.0.1:5173/"}
@@ -149,6 +151,7 @@ export default defineComponent({
       console.log(this.thing)
     },
   },
+
   watch: {
     group() {
       this.drawer = false;

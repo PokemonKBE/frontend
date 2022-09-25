@@ -104,6 +104,8 @@ import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
 import {PokemonCardRequest} from "../dto/PokemonCardRequest";
 import {PokemonDeckRequest} from "../dto/PokemonDeckRequest";
+import {CurrencyRequest} from "../dto/CurrencyRequest";
+import currency from "../state-management/currency";
 
 export default {
   name: "BuildSets",
@@ -111,13 +113,28 @@ export default {
   data: () => ({
     selection: [],
     cards: [],
+    newPrices: [],
+    tempNumber: 0,
     dialog: false,
     deckName: "",
     deckDisabled: true,
   }),
 
-  mounted() {
-    this.loadCards()
+  async mounted() {
+    await this.loadCards()
+
+    let presentCurrency = currency().currentCurrency.value
+
+    let oldPrices = this.cards.map((card) => card.price)
+
+    for (let i = 0; i < oldPrices.length; i++) {
+      await this.loadNewPrices(presentCurrency, oldPrices[i])
+    }
+
+    for (let i = 0; i < this.cards.length; i++) {
+      this.cards[i].price = this.newPrices[i]
+    }
+
   },
 
   methods: {
@@ -126,6 +143,16 @@ export default {
         this.cards = response.data
       })
     },
+
+    async loadNewPrices(curr, oldPrice) {
+      let currencyRequest = new CurrencyRequest(curr, oldPrice)
+
+      await DataService.getCurrency(currencyRequest).then((response) => {
+        this.tempNumber = response.data
+        this.newPrices.push(this.tempNumber)
+      })
+    },
+
 
     manageSelected(card) {
       const index = this.selection.indexOf(card);

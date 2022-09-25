@@ -6,8 +6,7 @@
         <div class="pokiCard"
              v-for="card in cards">
 
-          <BuyElement :card-prop="card" :img="card.name" :path="detailpath"/>
-<!--          {{ card.name }}-->
+          <BuyElement :card-prop="card" :img="card.name" :path="detailPath"/>
         </div>
 
       </v-container>
@@ -16,8 +15,10 @@
 </template>
 
 <script>
-import DataService from "../service/DataService.ts";
+import DataService from "../service/DataService";
 import BuyElement from "../components/BuyElement.vue";
+import currency from "../state-management/currency";
+import {CurrencyRequest} from "../dto/CurrencyRequest";
 
 
 export default {
@@ -25,10 +26,27 @@ export default {
   components: {BuyElement},
   data: () => ({
     cards: [],
+    newPrices: [],
+    tempNumber: 0,
+    detailPath: "/card-detail/",
+
   }),
-  mounted() {
-    this.loadCards()
-    console.log(this.cards.name)
+
+  async mounted() {
+    await this.loadCards()
+
+    let presentCurrency = currency().currentCurrency.value
+
+    let oldPrices = this.cards.map((card) => card.price)
+
+    for (let i = 0; i < oldPrices.length; i++) {
+      await this.loadNewPrices(presentCurrency, oldPrices[i])
+    }
+
+    for (let i = 0; i < this.cards.length; i++) {
+      this.cards[i].price = this.newPrices[i]
+    }
+
   },
 
   methods: {
@@ -36,7 +54,16 @@ export default {
       await DataService.getCards().then((response) => {
         this.cards = response.data
       })
-    }
+    },
+
+    async loadNewPrices(curr, oldPrice) {
+      let currencyRequest = new CurrencyRequest(curr, oldPrice)
+
+      await DataService.getCurrency(currencyRequest).then((response) => {
+        this.tempNumber = response.data
+        this.newPrices.push(this.tempNumber)
+      })
+    },
   }
 }
 
