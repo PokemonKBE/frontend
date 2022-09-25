@@ -5,12 +5,9 @@ import vuetify from './plugins/vuetify'
 import {loadFonts} from './plugins/webfontloader'
 import 'vuetify/styles'
 import Keycloak from "keycloak-js";
-import { createStore } from 'vuex'
-
+import { createStore } from "vuex"
 
 loadFonts()
-
-
 
 const initOptions = {
 
@@ -24,10 +21,8 @@ const store = createStore({
         return {
             cloak: new Keycloak(initOptions)
         }
-
     },
     mutations: {
-
     },
     getters:{
         cloakState (state,getters){
@@ -36,10 +31,6 @@ const store = createStore({
     }
 
 })
-
-
-
-
 
 export async function authenticateAgainstKeycloak(): Promise<void> {
 
@@ -57,7 +48,6 @@ export async function authenticateAgainstKeycloak(): Promise<void> {
 
             if (keycloak.token) {
                 window.localStorage.setItem('keycloakToken', keycloak.token)
-
             }
         })
         await router.push('/')
@@ -65,9 +55,6 @@ export async function authenticateAgainstKeycloak(): Promise<void> {
         console.log("Failed To get Token From Keycloak", e)
     }
 }
-
-
-
 
 function instantiateVueApp() {
     createApp(App)
@@ -84,5 +71,3 @@ if (!window.localStorage.getItem('keycloakToken')) {
 } else {
     instantiateVueApp()
 }
-
-
