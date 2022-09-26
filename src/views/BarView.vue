@@ -7,6 +7,46 @@
         <v-toolbar-title class="">gOtta buy em all</v-toolbar-title>
 
         <v-spacer></v-spacer>
+
+        <v-btn>
+          Did you know?
+          <v-dialog
+              v-model="dialog"
+              activator="parent"
+          >
+            <v-card
+            class="factCard">
+              <v-card-title>Random
+                <strike>Cat</strike>,
+                I mean Pokemon Fact
+              </v-card-title>
+
+              <v-card-text
+                  style="margin-top: 10px">
+                {{ fact }}
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer/>
+                <v-btn
+                    @click="this.dialog = !dialog"
+                    color="white"
+                    style="background-color: #4F4F4F"
+                >
+                  Close
+                </v-btn>
+                <v-btn
+                    color="white"
+                    style="background-color: #C9A71E"
+                    @click="getFact()"
+                >
+                  Another one!
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+        </v-btn>
       </v-app-bar>
     </v-card>
 
@@ -80,6 +120,8 @@ export default defineComponent({
     cloak: getCurrentInstance()?.appContext.config.globalProperties.keycloak,
     drawer: false,
     group: null,
+    dialog: false,
+    fact: "",
 
     selected: currency().currentCurrency.value,
 
@@ -131,6 +173,10 @@ export default defineComponent({
     ],
   }),
 
+  mounted() {
+    this.getFact()
+  },
+
   methods: {
     clicked(item: any) {
       if (!item) return
@@ -139,11 +185,18 @@ export default defineComponent({
       localStorage.setItem("currency", item.value)
       location.reload()
     },
+
     logout() {
       const redirectURL = {redirectUri: "http://localhost:5173/"}
       this.$store.state.cloak.logout(redirectURL)
       window.localStorage.removeItem("keycloakToken")
     },
+
+    getFact() {
+      DataService.getFact().then((response) => {
+        this.fact = response.data
+      })
+    }
   },
 
   watch: {
@@ -156,6 +209,14 @@ export default defineComponent({
 </script>
 
 <style>
+
+.factCard {
+  padding-top: 10px;
+  background-color: #383838;
+  color: white;
+  width: 700px;
+  height: 230px;
+}
 .nav-menu .v-list-item {
   background: #383838;
   color: white;
