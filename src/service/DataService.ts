@@ -45,7 +45,12 @@ class DataService {
     }
 
     async postDeck(deck: PokemonDeckRequest) {
-        return await axios.post(api_base_url + "/create-deck", deck);
+        return await axios.post(api_base_url + "/create-deck", deck,
+            {
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
+                }
+            });
     }
 }
 
