@@ -7,31 +7,23 @@ const api_base_url = "http://localhost:8082/api"
 class DataService {
 
     async getCards() {
-        let value = await axios.get(api_base_url + "/get-cards"
-            ,
-            {
+        return await axios.get(api_base_url + "/get-cards", {
                 headers: {
                     "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
                 }})
-        console.log(value)
-
-        return value
     }
 
     async getDecks() {
-        let value = await axios.get(api_base_url + "/get-decks",
+        return await axios.get(api_base_url + "/get-decks",
         {
             headers: {
                 "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
             }
         })
-        console.log(value)
-
-        return value
     }
 
     async getCurrency(currencyRequest: CurrencyRequest) {
-        let value = await axios.get(api_base_url + "/get-currency", {
+        return await axios.get(api_base_url + "/get-currency", {
             params: {
                 ...currencyRequest
             },
@@ -39,18 +31,22 @@ class DataService {
                 "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
             }
         })
-        console.log(value)
-
-        return value
     }
 
     async postDeck(deck: PokemonDeckRequest) {
-        return await axios.post(api_base_url + "/create-deck", deck,
-            {
+        return await axios.post(api_base_url + "/create-deck", deck, {
                 headers: {
                     "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
                 }
             });
+    }
+
+    async getFact() {
+        return await axios.get(api_base_url + "/get-fact", {
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("keycloakToken"),
+                }
+            })
     }
 }
 
